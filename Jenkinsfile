@@ -12,7 +12,7 @@ pipeline {
     stages {
     stage('1. Git Checkout') {
       steps {
-        git branch: 'release', credentialsId: 'Github-pat', url: 'https://github.com/ndiforfusi/addressbook.git'
+        git branch: 'release', credentialsId: 'git-cred', url: 'https://github.com/delaliyok/addressbook.git'
       }
     }
     stage('2. Build with Maven') { 
@@ -30,7 +30,7 @@ pipeline {
                       ${scannerHome}/bin/sonar-scanner  \
                       -Dsonar.projectKey=addressbook-application \
                       -Dsonar.projectName='addressbook-application' \
-                      -Dsonar.host.url=https://sonarqube.dominionsystem.org \
+                      -Dsonar.host.url=http://34.220.163.185:9000 \
                       -Dsonar.token=${SONAR_TOKEN} \
                       -Dsonar.sources=src/main/java/ \
                       -Dsonar.java.binaries=target/classes \
@@ -40,10 +40,10 @@ pipeline {
         }
     stage('4. Docker Image Build') {
       steps {
-        sh "aws ecr-public get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin public.ecr.aws/a1o0c8b5"
+        sh "aws ecr-public get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin public.ecr.aws/o5w7u8m6"
         sh "sudo docker build -t addressbook ."
-        sh "sudo docker tag addressbook:latest public.ecr.aws/a1o0c8b5/addressbook:${params.ecr_tag}"
-        sh "sudo docker push public.ecr.aws/a1o0c8b5/addressbook:${params.ecr_tag}"
+        sh "sudo docker tag addressbook:latest public.ecr.aws/o5w7u8m6/addressbook:${params.ecr_tag}"
+        sh "sudo docker push public.ecr.aws/o5w7u8m6/addressbook:${params.ecr_tag}"
       }
     }
 
@@ -73,7 +73,7 @@ pipeline {
          Thanks,
          Dominion System Technologies,
          +1 (313) 413-1477''', 
-         subject: 'Application was Successfully Deployed!!', to: 'fusisoft@gmail.com'
+         subject: 'Application was Successfully Deployed!!', to: 'laligrins@gmail.com'
       }
     }
   }
