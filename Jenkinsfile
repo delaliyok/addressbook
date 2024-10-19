@@ -73,7 +73,7 @@ pipeline {
          Thanks,
          Dominion System Technologies,
          +1 (313) 413-1477''', 
-         subject: 'Application was Successfully Deployed!!', to: 'laligrins@gmail.com'
+         subject: 'Application was Successfully Deployed!!', to: 'laligrins@gmail.com, hodygaba@gmail.com'
       }
     }
   }
